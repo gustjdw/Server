@@ -1,18 +1,17 @@
+const express = require("express");
+const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const allUsers = await prisma.users.findMany();
-  console.log(allUsers);
-}
+router.get("/", (req, res) => {
+  res.send("/db");
+});
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+router.get("/getInfo", async (req, res) => {
+  const allInfo = await prisma.users.findMany();
+  console.log(allInfo);
+  res.send(allInfo);
+});
+
+module.exports = router;
