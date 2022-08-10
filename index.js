@@ -1,13 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
-// const dbRouter = require("./routes/dbRouter");
-const example = require("./example.js");
-dotenv.config();
+const dbRouter = require("./routes/dbRouter.js");
 const app = express();
+app.use(express.json());
 app.set("port", process.env.PORT || 3001);
+dotenv.config();
 
 // db
-app.use("/db", example);
+app.use("/db", dbRouter);
 
 // Root
 app.use("/", (req, res) => {
@@ -21,6 +21,7 @@ app.use((err, req, res) => {
   res.status(500).send("Something broke!");
 });
 
+// Server
 app.listen(app.get("port"), () => {
   console.log(app.get("port"), "port connected!!");
 });
