@@ -16,10 +16,6 @@ app.use("/", (req, res) => {
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
-app.use((err, req, res) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-});
 
 // Server
 app.listen(app.get("port"), () => {
